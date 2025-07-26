@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Cost Calculator | Campus Navigator</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../navpages/cost.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+            </svg>
+            <h2 class="loading-text">Campus <span>Navigator</span></h2>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar glass-nav">
+            <div class="logo">
+                <a href="cost.html">
+                    <h1>Campus<span>Navigator</span></h1>
+                </a>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <i class="fas fa-times close-menu" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="college-search.php" class="active">Find Colleges</a></li>
+                    <li><a href="scholarships.html">Scholarships</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="../contact/contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="menu-btn">
+                <i class="fas fa-bars" onclick="showMenu()"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Cost Calculator Section -->
+    <section class="cost-calculator-section">
+        <div class="calculator-container">
+            <div class="calculator-header">
+                <h2>College Cost Calculator</h2>
+                <p>Estimate your total college expenses and plan your budget</p>
+            </div>
+
+            <div class="calculator-grid">
+                <!-- Tuition & Fees -->
+                <div class="calculator-card">
+                    <h3><i class="fas fa-graduation-cap"></i> Tuition & Fees</h3>
+                    <div class="input-group">
+                        <label for="tuition">Annual Tuition</label>
+                        <div class="input-wrapper">
+                            <span class="currency">₹</span>
+                            <input type="number" id="tuition" min="0" step="10000" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="fees">Additional Fees</label>
+                        <div class="input-wrapper">
+                            <span class="currency">₹</span>
+                            <input type="number" id="fees" min="0" step="1000" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Housing -->
+                <div class="calculator-card">
+                    <h3><i class="fas fa-home"></i> Housing</h3>
+                    <div class="input-group">
+                        <label for="housing">Hostel/Accommodation</label>
+                        <div class="input-wrapper">
+                            <span class="currency">₹</span>
+                            <input type="number" id="housing" min="0" step="1000" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="mealPlan">Mess Charges</label>
+                        <div class="input-wrapper">
+                            <span class="currency">₹</span>
+                            <input type="number" id="mealPlan" min="0" step="1000" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Books & Supplies -->
+                <div class="calculator-card">
+                    <h3><i class="fas fa-book"></i> Books & Supplies</h3>
+                    <div class="input-group">
+                        <label for="books">Textbooks & Study Materials</label>
+                        <div class="input-wrapper">
+                            <span class="currency">₹</span>
+                            <input type="number" id="books" min="0" step="500" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="supplies">Stationery & Supplies</label>
+                        <div class="input-wrapper">
+                            <span class="currency">₹</span>
+                            <input type="number" id="supplies" min="0" step="200" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transportation -->
+                <div class="calculator-card">
+                    <h3><i class="fas fa-car"></i> Transportation</h3>
+                    <div class="input-group">
+                        <label for="transportation">Local Transport</label>
+                        <div class="input-wrapper">
+                            <span class="currency">₹</span>
+                            <input type="number" id="transportation" min="0" step="500" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="parking">Vehicle Parking</label>
+                        <div class="input-wrapper">
+                            <span class="currency">₹</span>
+                            <input type="number" id="parking" min="0" step="200" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Expenses -->
+                <div class="calculator-card">
+                    <h3><i class="fas fa-user"></i> Personal Expenses</h3>
+                    <div class="input-group">
+                        <label for="personal">Personal Care & Toiletries</label>
+                        <div class="input-wrapper">
+                            <span class="currency">₹</span>
+                            <input type="number" id="personal" min="0" step="500" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="entertainment">Entertainment & Outings</label>
+                        <div class="input-wrapper">
+                            <span class="currency">₹</span>
+                            <input type="number" id="entertainment" min="0" step="500" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Aid -->
+                <div class="calculator-card">
+                    <h3><i class="fas fa-hand-holding-usd"></i> Financial Aid</h3>
+                    <div class="input-group">
+                        <label for="scholarships">Scholarships</label>
+                        <div class="input-wrapper">
+                            <span class="currency">₹</span>
+                            <input type="number" id="scholarships" min="0" step="10000" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="grants">Education Loans/Grants</label>
+                        <div class="input-wrapper">
+                            <span class="currency">₹</span>
+                            <input type="number" id="grants" min="0" step="10000" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section">
+                <div class="results-grid">
+                    <div class="result-card total-cost">
+                        <h3>Total Annual Cost</h3>
+                        <div class="amount">₹<span id="totalCost">0</span></div>
+                    </div>
+                    <div class="result-card net-cost">
+                        <h3>Net Cost After Aid</h3>
+                        <div class="amount">₹<span id="netCost">0</span></div>
+                    </div>
+                    <div class="result-card monthly">
+                        <h3>Monthly Payment</h3>
+                        <div class="amount">₹<span id="monthlyPayment">0</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="calculator-actions">
+                <button class="calculate-btn" onclick="calculateCosts()">
+                    <i class="fas fa-calculator"></i> Calculate
+                </button>
+                <button class="reset-btn" onclick="resetCalculator()">
+                    <i class="fas fa-redo"></i> Reset
+                </button>
+                <button class="save-btn" onclick="saveCalculation()">
+                    <i class="fas fa-save"></i> Save
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="glass-footer">
+        <div class="footer-container">
+            <p>&copy; 2024 Campus Navigator. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="../privacy/privacy.html">Privacy Policy</a>
+                <a href="../terms/terms.html">Terms of Service</a>
+                <a href="../contact/contact.html">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../navpages/cost.js"></script>
+</body>
+</html> 

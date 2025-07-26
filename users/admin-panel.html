@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Campus Compass</title>
+    <link rel="stylesheet" href="admin-panel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <!-- Three.js for 3D elements -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.150.1/three.min.js"></script>
+    <!-- Chart.js for admin analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Sortable.js for drag and drop interfaces -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <!-- API Integration -->
+    <script src="../js/api.js"></script>
+</head>
+<body class="admin-body">
+    <!-- Authentication Check -->
+    <script>
+        // Check if user is authenticated and has admin role
+        function checkAdminAuth() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser || currentUser.role !== 'admin') {
+                window.location.href = '../login/login.html';
+                return;
+            }
+            // Update admin name in the UI
+            document.getElementById('admin-name').textContent = currentUser.username;
+        }
+
+        // Initialize authentication check
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAdminAuth();
+        });
+    </script>
+
+    <!-- Floating Particle Background -->
+    <div id="particles-js" class="admin-particles"></div>
+    
+    <!-- 3D Logo Animation -->
+    <div id="logo-container" class="logo-3d-container"></div>
+    
+    <!-- Sidebar Toggle Button (mobile) -->
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="admin-container">
+        <!-- Admin Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-profile">
+                <div class="admin-avatar">
+                    <div class="avatar-glow"></div>
+                    <img src="../assets/default-avatar.png" alt="Admin Avatar" id="admin-avatar">
+                </div>
+                <h3>Welcome, <span id="admin-name">Admin</span></h3>
+                <p class="admin-role">Super Administrator</p>
+            </div>
+            
+            <nav class="admin-nav">
+                <ul>
+                    <li class="active" data-section="dashboard">
+                        <a href="#dashboard"><i class="fas fa-gauge-high"></i> Dashboard</a>
+                    </li>
+                    <li data-section="users">
+                        <a href="#users"><i class="fas fa-users"></i> User Management</a>
+                    </li>
+                    <li data-section="colleges">
+                        <a href="#colleges"><i class="fas fa-university"></i> Manage Colleges</a>
+                    </li>
+                    <li data-section="scholarships">
+                        <a href="#scholarships"><i class="fas fa-graduation-cap"></i> Scholarships</a>
+                    </li>
+                    <li data-section="settings">
+                        <a href="#settings"><i class="fas fa-sliders"></i> System Settings</a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="admin-sidebar-footer">
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+                <a href="#" class="logout-btn" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="admin-content">
+            <header class="admin-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search anything..." id="admin-search">
+                </div>
+                
+                <div class="admin-actions">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="message-btn">
+                        <i class="fas fa-envelope"></i>
+                        <span class="message-badge">5</span>
+                    </button>
+                    <button class="help-btn pulse">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="admin-section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-gauge-high"></i> <span class="gradient-text">Dashboard Overview</span></h2>
+                    <p>Welcome to your command center</p>
+                </div>
+                
+                <div class="stats-cards">
+                    <div class="stat-card users-card shiny-border">
+                        <div class="stat-icon pulse-effect">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Users</h3>
+                            <p class="stat-number" id="total-users">0</p>
+                            <span class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i> <span id="user-growth">0%</span> this month
+                            </span>
+                        </div>
+                        <div class="stat-chart">
+                            <canvas id="users-chart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card colleges-card shiny-border">
+                        <div class="stat-icon pulse-effect">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Colleges Listed</h3>
+                            <p class="stat-number" id="total-colleges">0</p>
+                            <span class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i> <span id="college-growth">0%</span> this month
+                            </span>
+                        </div>
+                        <div class="stat-chart">
+                            <canvas id="colleges-chart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card scholarships-card shiny-border">
+                        <div class="stat-icon pulse-effect">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Active Scholarships</h3>
+                            <p class="stat-number" id="total-scholarships">0</p>
+                            <span class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i> <span id="scholarship-growth">0%</span> this month
+                            </span>
+                        </div>
+                        <div class="stat-chart">
+                            <canvas id="scholarships-chart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card resources-card shiny-border">
+                        <div class="stat-icon pulse-effect">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Resource Downloads</h3>
+                            <p class="stat-number" id="total-downloads">0</p>
+                            <span class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i> <span id="download-growth">0%</span> this month
+                            </span>
+                        </div>
+                        <div class="stat-chart">
+                            <canvas id="resources-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add radial quick action menu -->
+                <div class="radial-menu" id="quick-actions">
+                    <div class="radial-menu-toggle">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="radial-menu-items">
+                        <div class="radial-menu-item" data-tooltip="Add User" onclick="showAddUserModal()">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="radial-menu-item" data-tooltip="Add College" onclick="showAddCollegeModal()">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="radial-menu-item" data-tooltip="Add Scholarship" onclick="showAddScholarshipModal()">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="radial-menu-item" data-tooltip="Reports" onclick="showReportsModal()">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add modals for quick actions -->
+                <div id="addUserModal" class="modal">
+                    <div class="modal-content">
+                        <h2>Add New User</h2>
+                        <form id="addUserForm">
+                            <input type="text" placeholder="Username" required>
+                            <input type="email" placeholder="Email" required>
+                            <input type="password" placeholder="Password" required>
+                            <select required>
+                                <option value="">Select Role</option>
+                                <option value="admin">Admin</option>
+                                <option value="editor">Editor</option>
+                                <option value="viewer">Viewer</option>
+                            </select>
+                            <button type="submit">Add User</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="addCollegeModal" class="modal">
+                    <div class="modal-content">
+                        <h2>Add New College</h2>
+                        <form id="addCollegeForm">
+                            <input type="text" placeholder="College Name" required>
+                            <input type="text" placeholder="Location" required>
+                            <textarea placeholder="Courses" required></textarea>
+                            <input type="number" placeholder="Fees" required>
+                            <input type="number" placeholder="Ranking" required>
+                            <textarea placeholder="Contact Info" required></textarea>
+                            <textarea placeholder="Description"></textarea>
+                            <input type="url" placeholder="Website URL">
+                            <button type="submit">Add College</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Add logout handler -->
+                <script>
+                    function handleLogout() {
+                        api.logout();
+                        window.location.href = '../login/login.html';
+                    }
+
+                    // Initialize dashboard data
+                    async function initializeDashboard() {
+                        try {
+                            const analytics = await api.getAnalytics();
+                            // Update dashboard stats
+                            document.getElementById('total-users').textContent = analytics.total_users || 0;
+                            document.getElementById('total-colleges').textContent = analytics.total_colleges || 0;
+                            // ... update other stats
+                        } catch (error) {
+                            console.error('Failed to load dashboard data:', error);
+                        }
+                    }
+
+                    // Initialize dashboard on load
+                    document.addEventListener('DOMContentLoaded', () => {
+                        initializeDashboard();
+                    });
+                </script>
+            </section>
+
+            <!-- User Management Section (Empty Placeholder) -->
+            <section id="users-section" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-users"></i> User Management</h2>
+                    <p>Manage all registered users</p>
+                </div>
+                <div class="section-content">
+                    <p>User management content will go here...</p>
+                </div>
+            </section>
+            
+            <!-- Colleges Management Section (Empty Placeholder) -->
+            <section id="colleges-section" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-university"></i> College Management</h2>
+                    <p>Add and manage college listings</p>
+                </div>
+                <div class="section-content">
+                    <p>College management content will go here...</p>
+                </div>
+            </section>
+            
+            <!-- Scholarships Section (Empty Placeholder) -->
+            <section id="scholarships-section" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-graduation-cap"></i> Scholarships</h2>
+                    <p>Manage available scholarships</p>
+                </div>
+                <div class="section-content">
+                    <p>Scholarships content will go here...</p>
+                </div>
+            </section>
+            
+            <!-- Resources Section (Empty Placeholder) -->
+            <section id="resources-section" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-book"></i> Resources</h2>
+                    <p>Manage educational resources</p>
+                </div>
+                <div class="section-content">
+                    <p>Resources content will go here...</p>
+                </div>
+            </section>
+            
+            <!-- Content Pages Section (Empty Placeholder) -->
+            <section id="content-section" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-file-alt"></i> Content Pages</h2>
+                    <p>Manage website content</p>
+                </div>
+                <div class="section-content">
+                    <p>Content pages management will go here...</p>
+                </div>
+            </section>
+            
+            <!-- Settings Section (Empty Placeholder) -->
+            <section id="settings-section" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-sliders"></i> System Settings</h2>
+                    <p>Configure your website settings</p>
+                </div>
+                <div class="section-content">
+                    <p>Settings content will go here...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Modal System -->
+    <div class="modal-container" id="modal-container">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Modal Title</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content goes here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel-btn" id="modal-cancel">Cancel</button>
+                <button class="btn confirm-btn" id="modal-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-panel.js"></script>
+</body>
+</html>

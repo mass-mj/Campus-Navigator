@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarships | Campus compass</title>
+    <link rel="stylesheet" href="scholarships.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+            </svg>
+            <h2 class="loading-text">Campus<span>compass</span></h2>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../landingpage/home.html">
+                    <h1>campus<span>compass</span></h1>
+                </a>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <i class="fas fa-times close-menu" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="../navpages/about.html">About</a></li>
+                    <li><a href="../navpages/college-search.html">Find Colleges</a></li>
+                    <li><a href="../navpages/scholarships.html" class="active">Scholarships</a></li>
+                    <li><a href="../navpages/resources.html">Resources</a></li>
+                    <li><a href="../contact/contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="menu-btn">
+                <i class="fas fa-bars" onclick="showMenu()"></i>
+            </div>
+            <div class="cta-buttons">
+                <a href="../login/login.html" class="login-btn">Log In</a>
+                <a href="../login/signup.html" class="signup-btn">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-particles" id="hero-particles"></div>
+        <div class="hero-content">
+            <h1>Find <span class="gradient-text">Scholarships</span> for Your Education</h1>
+            <p>Discover financial aid opportunities that match your profile and aspirations</p>
+            <div class="scholarship-search">
+                <div class="search-tabs">
+                    <button class="tab-btn active" data-tab="search">Search Scholarships</button>
+                    <button class="tab-btn" data-tab="eligibility">Check Eligibility</button>
+                </div>
+                <div class="tab-content active" id="search-tab">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search by scholarship name, institution, or field of study...">
+                        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="tab-content" id="eligibility-tab">
+                    <div class="eligibility-form">
+                        <div class="form-group">
+                            <select id="studentLevel">
+                                <option value="" disabled selected>Select Academic Level</option>
+                                <option value="high-school">High School</option>
+                                <option value="undergraduate">Undergraduate</option>
+                                <option value="graduate">Graduate</option>
+                                <option value="phd">Ph.D.</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select id="studyField">
+                                <option value="" disabled selected>Field of Study</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="medicine">Medicine</option>
+                                <option value="business">Business</option>
+                                <option value="arts">Arts & Humanities</option>
+                                <option value="science">Science</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <button class="check-btn">Check Eligibility</button>
+                    </div>
+                </div>
+            </div>
+            <div class="scholarship-stats">
+                <div class="stat">
+                    <div class="stat-icon"><i class="fas fa-award"></i></div>
+                    <div class="stat-number">500+</div>
+                    <div class="stat-text">Scholarships</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon"><i class="fas fa-university"></i></div>
+                    <div class="stat-number">250+</div>
+                    <div class="stat-text">Institutions</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
+                    <div class="stat-number">10k+</div>
+                    <div class="stat-text">Students Benefited</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-header">
+                <h2>Filter Scholarships</h2>
+                <p>Narrow down your search using specific criteria</p>
+            </div>
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <h3>Scholarship Type</h3>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="type" value="merit"> Merit-Based</label>
+                        <label><input type="checkbox" name="type" value="need"> Need-Based</label>
+                        <label><input type="checkbox" name="type" value="research"> Research</label>
+                        <label><input type="checkbox" name="type" value="sports"> Sports</label>
+                        <label><input type="checkbox" name="type" value="community"> Community Service</label>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <h3>Study Location</h3>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="location" value="india"> India</label>
+                        <label><input type="checkbox" name="location" value="usa"> USA</label>
+                        <label><input type="checkbox" name="location" value="uk"> UK</label>
+                        <label><input type="checkbox" name="location" value="canada"> Canada</label>
+                        <label><input type="checkbox" name="location" value="australia"> Australia</label>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <h3>Amount Range</h3>
+                    <div class="range-slider">
+                        <div class="range-values">
+                            <span id="amountMin">₹0</span>
+                            <span id="amountMax">₹10,00,000+</span>
+                        </div>
+                        <input type="range" id="amountRange" min="0" max="1000000" step="10000" value="1000000">
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <h3>Deadline</h3>
+                    <div class="radio-group">
+                        <label><input type="radio" name="deadline" value="all" checked> All</label>
+                        <label><input type="radio" name="deadline" value="1month"> Within 1 Month</label>
+                        <label><input type="radio" name="deadline" value="3months"> Within 3 Months</label>
+                        <label><input type="radio" name="deadline" value="6months"> Within 6 Months</label>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button class="reset-btn">Reset Filters</button>
+                <button class="apply-btn">Apply Filters</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scholarships Section -->
+    <section class="scholarships-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Available Scholarships</h2>
+                <div class="view-options">
+                    <button class="view-btn active" data-view="grid"><i class="fas fa-th"></i></button>
+                    <button class="view-btn" data-view="list"><i class="fas fa-list"></i></button>
+                </div>
+            </div>
+            <div class="scholarships-grid view-grid" id="scholarshipsContainer">
+                <!-- India Scholarships -->
+                <div class="scholarship-card india" data-country="india" data-type="merit need" data-amount="300000">
+                    <div class="scholarship-logo">
+                        <img src="https://placehold.co/100x100?text=MHRD" alt="Ministry of Education Logo">
+                    </div>
+                    <div class="scholarship-content">
+                        <h3>Prime Minister's Scholarship Scheme</h3>
+                        <div class="scholarship-details">
+                            <div class="detail">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>₹3,00,000 per year</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Deadline: August 30, 2023</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Undergraduate, Postgraduate</span>
+                            </div>
+                        </div>
+                        <p class="scholarship-desc">The Prime Minister's Scholarship Scheme provides financial assistance to promising students for higher education in India. Merit-based selection with consideration for economically disadvantaged students.</p>
+                        <div class="scholarship-tags">
+                            <span class="tag">Merit-Based</span>
+                            <span class="tag">Need-Based</span>
+                            <span class="tag">Indian Citizens</span>
+                        </div>
+                    </div>
+                    <div class="scholarship-actions">
+                        <a href="#" class="eligibility-btn">Check Eligibility</a>
+                        <a href="#" class="apply-btn">Apply Now</a>
+                    </div>
+                </div>
+
+                <div class="scholarship-card india" data-country="india" data-type="merit" data-amount="200000">
+                    <div class="scholarship-logo">
+                        <img src="https://placehold.co/100x100?text=CSIR" alt="CSIR Logo">
+                    </div>
+                    <div class="scholarship-content">
+                        <h3>CSIR Junior Research Fellowship</h3>
+                        <div class="scholarship-details">
+                            <div class="detail">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>₹2,00,000 per year</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Deadline: December 15, 2023</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Postgraduate, Ph.D.</span>
+                            </div>
+                        </div>
+                        <p class="scholarship-desc">CSIR offers research fellowships to promising young scientists pursuing doctoral research in science and engineering fields at recognized Indian universities and institutions.</p>
+                        <div class="scholarship-tags">
+                            <span class="tag">Research</span>
+                            <span class="tag">Science</span>
+                            <span class="tag">Engineering</span>
+                        </div>
+                    </div>
+                    <div class="scholarship-actions">
+                        <a href="#" class="eligibility-btn">Check Eligibility</a>
+                        <a href="#" class="apply-btn">Apply Now</a>
+                    </div>
+                </div>
+
+                <!-- International Scholarships -->
+                <div class="scholarship-card international" data-country="usa" data-type="merit" data-amount="900000">
+                    <div class="scholarship-logo">
+                        <img src="https://placehold.co/100x100?text=Fulbright" alt="Fulbright Logo">
+                    </div>
+                    <div class="scholarship-content">
+                        <h3>Fulbright-Nehru Master's Fellowships</h3>
+                        <div class="scholarship-details">
+                            <div class="detail">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>$12,000 per year</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Deadline: July 15, 2023</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Postgraduate</span>
+                            </div>
+                        </div>
+                        <p class="scholarship-desc">The Fulbright-Nehru Master's Fellowships enable Indian students to pursue master's degrees in the United States in various fields such as Arts, Humanities, Social Sciences, and STEM.</p>
+                        <div class="scholarship-tags">
+                            <span class="tag">Study Abroad</span>
+                            <span class="tag">USA</span>
+                            <span class="tag">Master's Degree</span>
+                        </div>
+                    </div>
+                    <div class="scholarship-actions">
+                        <a href="#" class="eligibility-btn">Check Eligibility</a>
+                        <a href="#" class="apply-btn">Apply Now</a>
+                    </div>
+                </div>
+
+                <div class="scholarship-card international" data-country="uk" data-type="merit" data-amount="1000000">
+                    <div class="scholarship-logo">
+                        <img src="https://placehold.co/100x100?text=Chevening" alt="Chevening Logo">
+                    </div>
+                    <div class="scholarship-content">
+                        <h3>Chevening Scholarship</h3>
+                        <div class="scholarship-details">
+                            <div class="detail">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>Full Funding (Approx ₹10L)</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Deadline: November 2, 2023</span>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Postgraduate</span>
+                            </div>
+                        </div>
+                        <p class="scholarship-desc">Chevening Scholarships enable outstanding emerging leaders from India and around the world to pursue a one-year master's degree in any subject at any UK university.</p>
+                        <div class="scholarship-tags">
+                            <span class="tag">Study Abroad</span>
+                            <span class="tag">UK</span>
+                            <span class="tag">Leadership</span>
+                        </div>
+                    </div>
+                    <div class="scholarship-actions">
+                        <a href="#" class="eligibility-btn">Check Eligibility</a>
+                        <a href="#" class="apply-btn">Apply Now</a>
+                    </div>
+                </div>
+
+                <!-- More scholarship cards here -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-container">
+                <button id="loadMoreBtn" class="load-more-btn">Load More Scholarships</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Process Section -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header center">
+                <h2>Scholarship Application Process</h2>
+                <p>Follow these steps to increase your chances of securing a scholarship</p>
+            </div>
+            <div class="process-timeline">
+                <div class="process-item">
+                    <div class="process-icon">
+                        <i class="fas fa-search"></i>
+                        <div class="step-number">1</div>
+                    </div>
+                    <div class="process-content">
+                        <h3>Find Scholarships</h3>
+                        <p>Search and filter scholarships that match your profile, interests, and educational goals</p>
+                    </div>
+                </div>
+                <div class="process-item">
+                    <div class="process-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                        <div class="step-number">2</div>
+                    </div>
+                    <div class="process-content">
+                        <h3>Check Eligibility</h3>
+                        <p>Review the requirements and ensure you meet all the eligibility criteria before applying</p>
+                    </div>
+                </div>
+                <div class="process-item">
+                    <div class="process-icon">
+                        <i class="fas fa-file-alt"></i>
+                        <div class="step-number">3</div>
+                    </div>
+                    <div class="process-content">
+                        <h3>Prepare Documents</h3>
+                        <p>Gather all required documents including academic records, recommendation letters, and essays</p>
+                    </div>
+                </div>
+                <div class="process-item">
+                    <div class="process-icon">
+                        <i class="fas fa-paper-plane"></i>
+                        <div class="step-number">4</div>
+                    </div>
+                    <div class="process-content">
+                        <h3>Submit Application</h3>
+                        <p>Complete and submit your application before the deadline, ensuring all requirements are met</p>
+                    </div>
+                </div>
+                <div class="process-item">
+                    <div class="process-icon">
+                        <i class="fas fa-hourglass-half"></i>
+                        <div class="step-number">5</div>
+                    </div>
+                    <div class="process-content">
+                        <h3>Wait for Results</h3>
+                        <p>Track your application status and wait for the scholarship committee's decision</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories Section -->
+    <section class="success-stories">
+        <div class="container">
+            <div class="section-header center">
+                <h2>Success Stories</h2>
+                <p>Meet the students who transformed their academic journey with our scholarships</p>
+            </div>
+            <div class="success-slider">
+                <div class="success-card">
+                    <div class="success-image">
+                        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Priya Sharma">
+                    </div>
+                    <div class="success-content">
+                        <h3>Priya Sharma</h3>
+                        <div class="success-meta">
+                            <span><i class="fas fa-university"></i> MIT</span>
+                            <span><i class="fas fa-award"></i> Fulbright Scholarship</span>
+                        </div>
+                        <p class="success-quote">"The Fulbright Scholarship opened doors I never thought possible. I'm now pursuing my dream degree at MIT, connecting with brilliant minds from around the world."</p>
+                        <div class="success-achievement">
+                            <span class="achievement-label">Achieved:</span>
+                            <span class="achievement-text">Masters in Computer Science, Research Publication in AI</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="success-card">
+                    <div class="success-image">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul Patel">
+                    </div>
+                    <div class="success-content">
+                        <h3>Rahul Patel</h3>
+                        <div class="success-meta">
+                            <span><i class="fas fa-university"></i> IIT Delhi</span>
+                            <span><i class="fas fa-award"></i> CSIR Fellowship</span>
+                        </div>
+                        <p class="success-quote">"The CSIR Fellowship didn't just fund my research; it connected me with a network of brilliant scientists and mentors who continue to inspire my work in renewable energy."</p>
+                        <div class="success-achievement">
+                            <span class="achievement-label">Achieved:</span>
+                            <span class="achievement-text">PhD in Renewable Energy, Patent for Solar Technology</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="success-card">
+                    <div class="success-image">
+                        <img src="https://randomuser.me/api/portraits/women/64.jpg" alt="Ananya Desai">
+                    </div>
+                    <div class="success-content">
+                        <h3>Ananya Desai</h3>
+                        <div class="success-meta">
+                            <span><i class="fas fa-university"></i> Oxford University</span>
+                            <span><i class="fas fa-award"></i> Chevening Scholarship</span>
+                        </div>
+                        <p class="success-quote">"As a first-generation college student from a small town, the Chevening Scholarship transformed my life. Studying at Oxford has given me the confidence and skills to drive change in healthcare policy."</p>
+                        <div class="success-achievement">
+                            <span class="achievement-label">Achieved:</span>
+                            <span class="achievement-text">MSc in Global Health, Healthcare Policy Advisor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button class="slider-btn prev-btn"><i class="fas fa-arrow-left"></i></button>
+                <div class="slider-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                </div>
+                <button class="slider-btn next-btn"><i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Find Your Perfect Scholarship?</h2>
+                <p>Create a free account to get personalized scholarship recommendations and track your applications</p>
+                <div class="cta-buttons">
+                    <a href="../login/login.html" class="cta-btn primary">Create Free Account</a>
+                    <a href="#" class="cta-btn secondary">Learn More</a>
+                </div>
+            </div>
+            <div class="cta-image">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxhbGx8fHx8fHx8fHwxNjIzMzYwNDEx&ixlib=rb-1.2.1&q=80&w=1080" alt="Student with laptop">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-logo">
+                <h2>campus<span>compass</span></h2>
+                <p>Your ultimate guide to finding the perfect college match</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="../navpages/college-search.html">College Search</a></li>
+                        <li><a href="../navpages/scholarships.html">Scholarships</a></li>
+                        <li><a href="#">Career Paths</a></li>
+                        <li><a href="#">Admission Tips</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="../navpages/about.html">About Us</a></li>
+                        <li><a href="../contact/contact.html">Contact</a></li>
+                        <li><a href="../privacy/privacy.html">Privacy Policy</a></li>
+                        <li><a href="../terms/terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="newsletter">
+                        <h4>Subscribe to our newsletter</h4>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Your email address">
+                            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 campus compass. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scholarships.js"></script>
+</body>
+</html> 

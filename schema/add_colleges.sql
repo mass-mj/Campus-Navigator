@@ -1,0 +1,11 @@
+-- Add 4 more colleges to the database
+USE collegefinder;
+
+INSERT INTO colleges (name, location, city, state, country, category, ranking, tuition, acceptance_rate, grade, description, logo_url, tags) VALUES 
+('Stanford University', 'Stanford, California', 'Stanford', 'California', 'USA', 'international science engineering business', 3, 5200000, 4.30, 'QS 2', 'Stanford University is a private research university in Stanford, California. It is known for its academic achievements, wealth, proximity to Silicon Valley, and selectivity. Stanford offers a wide range of academic programs from humanities to sciences and engineering.', 'https://placehold.co/80x80?text=Stanford', 'Research,Engineering,Business,Computer Science'),
+
+('National Institute of Technology, Trichy', 'Tiruchirappalli, Tamil Nadu', 'Tiruchirappalli', 'Tamil Nadu', 'India', 'india engineering south-india', 5, 125000, 10.00, 'A+', 'NIT Trichy is one of the premier engineering institutions in India, known for its high-quality education in various engineering disciplines. The institute offers undergraduate, postgraduate, and doctoral programs in engineering and technology.', 'https://placehold.co/80x80?text=NIT+T', 'Engineering,Technology,Computer Science'),
+
+('University of Oxford', 'Oxford, United Kingdom', 'Oxford', 'Oxfordshire', 'UK', 'international arts science', 4, 4000000, 17.50, 'QS 4', 'The University of Oxford is a collegiate research university in Oxford, England. It is the oldest university in the English-speaking world and consistently ranks among the top universities globally. Oxford offers a broad range of courses across humanities, sciences, medicine, and social sciences.', 'https://placehold.co/80x80?text=Oxford', 'Research,Medicine,Liberal Arts,Science'),
+
+('Indian School of Business', 'Hyderabad, Telangana', 'Hyderabad', 'Telangana', 'India', 'india business south-india', 6, 3500000, 25.00, 'A++', 'The Indian School of Business (ISB) is a private business school with campuses in Hyderabad and Mohali. ISB offers various management programs and is known for its rigorous curriculum, diverse student body, and strong industry connections. It consistently ranks among the top business schools in Asia.', 'https://placehold.co/80x80?text=ISB', 'Business,Management,Finance,MBA'); 
