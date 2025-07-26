@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard | TheCodex</title>
+    <link rel="stylesheet" href="user-panel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <!-- Three.js for 3D elements -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.150.1/three.min.js"></script>
+    <!-- Particles.js for background effects -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body class="user-body">
+    <!-- Interactive Particle Background -->
+    <div id="user-particles" class="user-particles"></div>
+    
+    <!-- Smart College Compass - 3D interactive element -->
+    <div id="college-compass" class="college-compass-container"></div>
+    
+    <!-- Sidebar Toggle Button (mobile) -->
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="user-container">
+        <!-- User Sidebar -->
+        <aside class="user-sidebar">
+            <div class="user-profile">
+                <div class="user-avatar-container">
+                    <img src="../assets/default-avatar.png" alt="User Avatar" id="user-avatar">
+                    <div class="avatar-change">
+                    </div>
+                </div>
+                <h3 id="user-name">John Smith</h3>
+                <p class="user-status">Premium Member</p>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Profile Completion</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 75%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="user-nav">
+                <ul>
+                    <li class="active" data-section="dashboard">
+                        <a href="#dashboard">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li data-section="my-profile">
+                        <a href="#my-profile">
+                            <i class="fas fa-user"></i>
+                            <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li data-section="saved-colleges">
+                        <a href="#saved-colleges">
+                            <i class="fas fa-heart"></i>
+                            <span>Saved Colleges</span>
+                            <span class="item-count">12</span>
+                        </a>
+                    </li>
+                    <li data-section="applications">
+                        <a href="#applications">
+                            <i class="fas fa-file-alt"></i>
+                            <span>My Applications</span>
+                            <span class="item-count">3</span>
+                        </a>
+                    </li>
+                    <li data-section="scholarships">
+                        <a href="../navpages/scholarships.html">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Scholarships</span>
+                            <span class="new-badge pulse">New</span>
+                        </a>
+                    </li>
+                    <li data-section="resources">
+                        <a href="../navpages/resources.html">
+                            <i class="fas fa-book"></i>
+                            <span>Resources</span>
+                        </a>
+                    </li>
+                    
+                    <li data-section="settings">
+                        <a href="#settings">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="theme-toggle" id="user-theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="../login/login.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="user-content">
+            <header class="user-header">
+                <div class="header-welcome">
+                    <h2 id="welcome-message">Welcome back, yash!</h2>
+                    <p id="date-display">Friday, March 28, 2025</p>
+                </div>
+                
+                <div class="user-actions">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge pulse">3</span>
+                    </button>
+                    <button class="help-btn">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="user-section active">
+                <div class="highlight-container">
+                    <div class="highlight-card deadline-card card-3d">
+                        <div class="highlight-icon pulse-effect">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="highlight-content card-3d-content">
+                            <h3 class="gradient-text">Upcoming Deadline</h3>
+                            <p class="highlight-main">Stanford Early Action</p>
+                            <p class="highlight-sub">5 days left (Dec 10)</p>
+                        </div>
+                        <button class="view-btn btn-modern">View</button>
+                    </div>
+                    
+                    <div class="highlight-card scholarship-card card-3d">
+                        <div class="highlight-icon pulse-effect">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div class="highlight-content card-3d-content">
+                            <h3 class="gradient-text">Scholarship Match</h3>
+                            <p class="highlight-main">3 New Matches</p>
+                            <p class="highlight-sub">Based on your profile</p>
+                        </div>
+                        <button class="view-btn btn-modern">View</button>
+                    </div>
+                    
+                    <div class="highlight-card resource-card card-3d">
+                        <div class="highlight-icon pulse-effect">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="highlight-content card-3d-content">
+                            <h3 class="gradient-text">Recommended Resource</h3>
+                            <p class="highlight-main">Essay Writing Guide</p>
+                            <p class="highlight-sub">Most downloaded this week</p>
+                        </div>
+                        <button class="view-btn btn-modern">View</button>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-widget college-progress">
+                        <div class="widget-header">
+                            <h3>My College Application Progress</h3>
+                            <button class="widget-options"><i class="fas fa-ellipsis-v"></i></button>
+                        </div>
+                        <div class="college-progress-list">
+                            <div class="college-item">
+                                <img src="../assets/college-logos/stanford.png" alt="Stanford University">
+                                <div class="college-details">
+                                    <h4>Stanford University</h4>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <span class="progress-percentage">85%</span>
+                            </div>
+                            
+                            <div class="college-item">
+                                <img src="../assets/college-logos/mit.png" alt="MIT">
+                                <div class="college-details">
+                                    <h4>Massachusetts Institute of Technology</h4>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                                <span class="progress-percentage">60%</span>
+                            </div>
+                            
+                            <div class="college-item">
+                                <img src="../assets/college-logos/harvard.png" alt="Harvard">
+                                <div class="college-details">
+                                    <h4>Harvard University</h4>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 40%"></div>
+                                    </div>
+                                </div>
+                                <span class="progress-percentage">40%</span>
+                            </div>
+                        </div>
+                        <a href="#applications" class="see-all-link">See all applications <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="dashboard-widget tasks-widget">
+                        <div class="widget-header">
+                            <h3>Upcoming Tasks</h3>
+                            <button class="widget-options"><i class="fas fa-ellipsis-v"></i></button>
+                        </div>
+                        <div class="tasks-list">
+                            <div class="task-item high-priority">
+                                <div class="task-checkbox">
+                                    <input type="checkbox" id="task1">
+                                    <label for="task1"></label>
+                                </div>
+                                <div class="task-content">
+                                    <h4>Finish Stanford Essay</h4>
+                                    <p>Due in 3 days</p>
+                                </div>
+                                <span class="task-badge">High</span>
+                            </div>
+                            
+                            <div class="task-item medium-priority">
+                                <div class="task-checkbox">
+                                    <input type="checkbox" id="task2">
+                                    <label for="task2"></label>
+                                </div>
+                                <div class="task-content">
+                                    <h4>Request Recommendation Letter</h4>
+                                    <p>Due in 7 days</p>
+                                </div>
+                                <span class="task-badge">Medium</span>
+                            </div>
+                            
+                            <div class="task-item low-priority">
+                                <div class="task-checkbox">
+                                    <input type="checkbox" id="task3">
+                                    <label for="task3"></label>
+                                </div>
+                                <div class="task-content">
+                                    <h4>Research Financial Aid Options</h4>
+                                    <p>Due in 14 days</p>
+                                </div>
+                                <span class="task-badge">Low</span>
+                            </div>
+                        </div>
+                        <button class="add-task-btn"><i class="fas fa-plus"></i> Add New Task</button>
+                    </div>
+                    
+                    <div class="dashboard-widget calendar-widget">
+                        <div class="widget-header">
+                            <h3>Important Dates</h3>
+                            <div class="calendar-nav">
+                                <button class="calendar-prev"><i class="fas fa-chevron-left"></i></button>
+                                <span class="current-month">December 2023</span>
+                                <button class="calendar-next"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="mini-calendar">
+                            <div class="calendar-days">
+                                <span>Sun</span>
+                                <span>Mon</span>
+                                <span>Tue</span>
+                                <span>Wed</span>
+                                <span>Thu</span>
+                                <span>Fri</span>
+                                <span>Sat</span>
+                            </div>
+                            <div class="calendar-dates">
+                                <!-- Generated via JavaScript -->
+                            </div>
+                        </div>
+                        <div class="upcoming-events">
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <span class="event-month">Dec</span>
+                                    <span class="event-day">10</span>
+                                </div>
+                                <div class="event-details">
+                                    <h4>Stanford Application Deadline</h4>
+                                    <p><i class="fas fa-clock"></i> All day</p>
+                                </div>
+                            </div>
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <span class="event-month">Dec</span>
+                                    <span class="event-day">15</span>
+                                </div>
+                                <div class="event-details">
+                                    <h4>Financial Aid Workshop</h4>
+                                    <p><i class="fas fa-clock"></i> 3:00 PM - 5:00 PM</p>
+                                </div>
+                            </div>
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <span class="event-month">Dec</span>
+                                    <span class="event-day">20</span>
+                                </div>
+                                <div class="event-details">
+                                    <h4>MIT Early Decision Results</h4>
+                                    <p><i class="fas fa-clock"></i> 5:00 PM EST</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-widget recommendations-widget">
+                        <div class="widget-header">
+                            <h3>Personalized Recommendations</h3>
+                            <button class="widget-options"><i class="fas fa-ellipsis-v"></i></button>
+                        </div>
+                        <div class="recommendation-slider">
+                            <div class="recommendation-slide">
+                                <div class="recommendation-icon">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <div class="recommendation-content">
+                                    <h4>Explore Duke University</h4>
+                                    <p>Based on your profile and interests in Computer Science</p>
+                                    <a href="#" class="recommendation-link">View Details</a>
+                                </div>
+                            </div>
+                            <div class="recommendation-slide">
+                                <div class="recommendation-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="recommendation-content">
+                                    <h4>STEM Excellence Scholarship</h4>
+                                    <p>$25,000 award for students pursuing engineering fields</p>
+                                    <a href="#" class="recommendation-link">View Details</a>
+                                </div>
+                            </div>
+                            <div class="recommendation-slide">
+                                <div class="recommendation-icon">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="recommendation-content">
+                                    <h4>Advanced Essay Writing Guide</h4>
+                                    <p>Premium resource with templates and examples</p>
+                                    <a href="#" class="recommendation-link">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-controls">
+                            <button class="slider-prev"><i class="fas fa-chevron-left"></i></button>
+                            <div class="slider-dots">
+                                <span class="dot active"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                            <button class="slider-next"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section (Empty placeholder) -->
+            <section id="my-profile-section" class="user-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-user"></i> My Profile</h2>
+                    <p>Manage your personal information and preferences</p>
+                </div>
+                <div class="section-content">
+                    <p>Profile content will go here...</p>
+                </div>
+            </section>
+
+            <!-- Saved Colleges Section (Empty placeholder) -->
+            <section id="saved-colleges-section" class="user-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-heart"></i> Saved Colleges</h2>
+                    <p>Colleges you've favorited for future reference</p>
+                </div>
+                <div class="section-content">
+                    <p>Saved colleges content will go here...</p>
+                </div>
+            </section>
+            
+            <!-- Applications Section (Empty placeholder) -->
+            <section id="applications-section" class="user-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-file-alt"></i> My Applications</h2>
+                    <p>Track and manage your college applications</p>
+                </div>
+                <div class="section-content">
+                    <p>Applications content will go here...</p>
+                </div>
+            </section>
+            
+            <!-- Scholarships Section (Empty placeholder) -->
+            <section id="scholarships-section" class="user-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-graduation-cap"></i> Scholarships</h2>
+                    <p>Find and apply for scholarships</p>
+                </div>
+                <div class="section-content">
+                    <p>Scholarships content will go here...</p>
+                </div>
+            </section>
+            
+            <!-- Resources Section (Empty placeholder) -->
+            <section id="resources-section" class="user-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-book"></i> Resources</h2>
+                    <p>Helpful guides and materials for your college journey</p>
+                </div>
+                <div class="section-content">
+                    <p>Resources content will go here...</p>
+                </div>
+            </section>
+            
+            <!-- Messages Section (Empty placeholder) -->
+            <section id="messages-section" class="user-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-envelope"></i> Messages</h2>
+                    <p>Communicate with advisors and colleges</p>
+                </div>
+                <div class="section-content">
+                    <p>Messages content will go here...</p>
+                </div>
+            </section>
+            
+            <!-- Settings Section (Empty placeholder) -->
+            <section id="settings-section" class="user-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-cog"></i> Settings</h2>
+                    <p>Manage your account preferences</p>
+                </div>
+                <div class="section-content">
+                    <p>Settings content will go here...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal System -->
+    <div class="modal-container" id="modal-container">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Modal Title</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content goes here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel-btn" id="modal-cancel">Cancel</button>
+                <button class="btn confirm-btn" id="modal-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="user-panel.js"></script>
+</body>
+</html> 

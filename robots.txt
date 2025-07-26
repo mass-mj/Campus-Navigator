@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /config/
+Disallow: /users/admin-panel.php
+Disallow: /users/college-management.php
+Disallow: /users/scholarship-management.php
+Disallow: /users/ai_assistant_management.php
+
+Sitemap: https://xploitguardians.space/__campuscampass/sitemap.xml

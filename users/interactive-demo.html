@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive UI Demo | TheCodex</title>
+    <link rel="stylesheet" href="panel-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        .demo-section {
+            padding: 50px;
+            margin-bottom: 30px;
+            border-radius: var(--radius-md);
+            background-color: white;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .dark-mode .demo-section {
+            background-color: var(--bg-dark-lighten);
+            color: var(--text-dark);
+        }
+        
+        .demo-section h2 {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--grey-light);
+        }
+        
+        .dark-mode .demo-section h2 {
+            border-bottom-color: var(--border-dark);
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .demo-item {
+            padding: 20px;
+            border-radius: var(--radius-md);
+            background-color: var(--light-color);
+            box-shadow: var(--shadow-soft);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dark-mode .demo-item {
+            background-color: var(--bg-dark);
+        }
+        
+        .demo-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .demo-btn {
+            padding: 10px 15px;
+            border-radius: var(--radius-sm);
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .demo-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .demo-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .floating-items-demo {
+            position: relative;
+            height: 300px;
+        }
+        
+        .floating-item {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .floating-item:nth-child(1) {
+            background: var(--primary-color);
+            top: 50px;
+            left: 50px;
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        .floating-item:nth-child(2) {
+            background: var(--secondary-color);
+            top: 120px;
+            left: 150px;
+            animation: float 7s ease-in-out infinite;
+        }
+        
+        .floating-item:nth-child(3) {
+            background: var(--accent-color);
+            top: 180px;
+            left: 80px;
+            animation: float 6s ease-in-out infinite 1s;
+        }
+        
+        .floating-item:nth-child(4) {
+            background: var(--success-color);
+            top: 100px;
+            left: 250px;
+            animation: float 8s ease-in-out infinite 0.5s;
+        }
+        
+        .stagger-demo-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .stagger-demo-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: var(--radius-sm);
+            background: var(--light-color);
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            align-items: center;
+        }
+        
+        .dark-mode .stagger-demo-item {
+            background: var(--bg-dark-lighten);
+        }
+        
+        .stagger-demo-item i {
+            margin-right: 15px;
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+        
+        .input-demo {
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-demo" class="admin-particles"></div>
+    
+    <div class="demo-controls">
+        <button id="theme-toggle" class="demo-btn">
+            <i class="fas fa-moon"></i> Toggle Dark Mode
+        </button>
+    </div>
+    
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1><span class="gradient-text">Interactive UI</span> Demo</h1>
+            <p>Explore modern CSS animations and effects</p>
+        </div>
+        
+        <!-- Text Effects Section -->
+        <section class="demo-section">
+            <h2>Text Effects</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3 class="gradient-text">Gradient Text</h3>
+                    <p>Text with smooth gradient background</p>
+                </div>
+                
+                <div class="demo-item">
+                    <h3 class="accent-gradient-text">Accent Gradient</h3>
+                    <p>Alternative gradient style</p>
+                </div>
+                
+                <div class="demo-item morphing-bg">
+                    <h3 style="color: white;">Morphing Background</h3>
+                    <p style="color: rgba(255,255,255,0.8);">Dynamic color transitions</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Card Effects Section -->
+        <section class="demo-section">
+            <h2>Card Effects</h2>
+            <div class="demo-grid">
+                <div class="demo-item card-3d">
+                    <div class="card-3d-content">
+                        <h3>3D Card Effect</h3>
+                        <p>Hover over me for 3D tilt effect</p>
+                    </div>
+                </div>
+                
+                <div class="demo-item glass-effect">
+                    <h3>Glass Morphism</h3>
+                    <p>Frosted glass effect with backdrop filter</p>
+                </div>
+                
+                <div class="demo-item shiny-border">
+                    <h3>Animated Border</h3>
+                    <p>Gradient border animation</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Button Effects Section -->
+        <section class="demo-section">
+            <h2>Button Effects</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <button class="btn-modern">Modern Button</button>
+                    <p style="margin-top: 20px;">Hover for slide effect</p>
+                </div>
+                
+                <div class="demo-item">
+                    <button class="view-btn pulse-effect">Pulse Effect</button>
+                    <p style="margin-top: 20px;">Button with glow animation</p>
+                </div>
+                
+                <div class="demo-item">
+                    <!-- Radial Menu Demo -->
+                    <div class="radial-menu demo-radial">
+                        <div class="radial-menu-toggle">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="radial-menu-items">
+                            <div class="radial-menu-item" data-tooltip="Action 1">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="radial-menu-item" data-tooltip="Action 2">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="radial-menu-item" data-tooltip="Action 3">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div class="radial-menu-item" data-tooltip="Action 4">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 100px;">Radial Menu (Click the + button)</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Animation Effects Section -->
+        <section class="demo-section">
+            <h2>Animation Effects</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <div class="floating-items-demo">
+                        <div class="floating-item"><i class="fas fa-star"></i></div>
+                        <div class="floating-item"><i class="fas fa-heart"></i></div>
+                        <div class="floating-item"><i class="fas fa-bell"></i></div>
+                        <div class="floating-item"><i class="fas fa-rocket"></i></div>
+                    </div>
+                    <p>Floating Animation</p>
+                </div>
+                
+                <div class="demo-item">
+                    <h3>Staggered List Items</h3>
+                    <ul class="stagger-list stagger-demo-list">
+                        <li class="stagger-list-item stagger-demo-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>List Item 1</span>
+                        </li>
+                        <li class="stagger-list-item stagger-demo-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>List Item 2</span>
+                        </li>
+                        <li class="stagger-list-item stagger-demo-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>List Item 3</span>
+                        </li>
+                        <li class="stagger-list-item stagger-demo-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>List Item 4</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="demo-item">
+                    <button id="animate-demo" class="btn-modern">
+                        Click for Animation
+                    </button>
+                    <div id="animation-target" style="
+                        width: 100px;
+                        height: 100px;
+                        background: var(--primary-color);
+                        border-radius: var(--radius-sm);
+                        margin-top: 20px;
+                        transition: var(--transition-medium);
+                    "></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Form Elements Section -->
+        <section class="demo-section">
+            <h2>Form Elements</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <div class="input-demo">
+                        <div class="input-floating-label">
+                            <input type="text" id="name" placeholder=" ">
+                            <label for="name">Full Name</label>
+                        </div>
+                        
+                        <div class="input-floating-label">
+                            <input type="email" id="email" placeholder=" ">
+                            <label for="email">Email Address</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                
+                if (document.body.classList.contains('dark-mode')) {
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i> Toggle Light Mode';
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i> Toggle Dark Mode';
+                }
+            });
+            
+            // Radial menu
+            const radialMenu = document.querySelector('.demo-radial');
+            const radialToggle = radialMenu.querySelector('.radial-menu-toggle');
+            
+            radialToggle.addEventListener('click', function() {
+                radialMenu.classList.toggle('active');
+            });
+            
+            // Close the menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!radialMenu.contains(event.target)) {
+                    radialMenu.classList.remove('active');
+                }
+            });
+            
+            // Add tooltip functionality
+            const radialItems = radialMenu.querySelectorAll('.radial-menu-item');
+            
+            radialItems.forEach(item => {
+                const tooltip = document.createElement('div');
+                tooltip.className = 'radial-tooltip';
+                tooltip.textContent = item.dataset.tooltip;
+                item.appendChild(tooltip);
+                
+                item.addEventListener('mouseenter', function() {
+                    tooltip.style.opacity = '1';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    tooltip.style.opacity = '0';
+                });
+            });
+            
+            // Initialize 3D card effects
+            const cards = document.querySelectorAll('.card-3d');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', function(e) {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const rotateX = (y / rect.height - 0.5) * -10;
+                    const rotateY = (x / rect.width - 0.5) * 10;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    
+                    const shine = card.querySelector('.card-shine') || document.createElement('div');
+                    
+                    if (!card.querySelector('.card-shine')) {
+                        shine.classList.add('card-shine');
+                        card.appendChild(shine);
+                    }
+                    
+                    shine.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 80%)`;
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    card.style.transform = '';
+                    
+                    const shine = card.querySelector('.card-shine');
+                    if (shine) {
+                        shine.style.background = '';
+                    }
+                });
+            });
+            
+            // Initialize staggered list animations
+            const lists = document.querySelectorAll('.stagger-list');
+            
+            lists.forEach(list => {
+                const items = list.querySelectorAll('.stagger-list-item');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.classList.add('animated');
+                            }, index * 100);
+                            
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2 });
+                
+                items.forEach(item => {
+                    observer.observe(item);
+                });
+            });
+            
+            // Animation demo
+            const animateBtn = document.getElementById('animate-demo');
+            const animationTarget = document.getElementById('animation-target');
+            
+            animateBtn.addEventListener('click', function() {
+                animationTarget.style.transform = 'rotate(360deg) scale(1.5)';
+                animationTarget.style.borderRadius = '50%';
+                
+                setTimeout(function() {
+                    animationTarget.style.transform = '';
+                    animationTarget.style.borderRadius = 'var(--radius-sm)';
+                }, 1000);
+            });
+            
+            // Initialize particles
+            if(window.particlesJS) {
+                particlesJS('particles-demo', {
+                    particles: {
+                        number: {
+                            value: 80,
+                            density: {
+                                enable: true,
+                                value_area: 800
+                            }
+                        },
+                        color: {
+                            value: ['#4a6cf7', '#6c63ff', '#ff6584']
+                        },
+                        shape: {
+                            type: ['circle', 'triangle'],
+                            stroke: {
+                                width: 0,
+                                color: '#000000'
+                            }
+                        },
+                        opacity: {
+                            value: 0.15,
+                            random: true,
+                            animation: {
+                                enable: true,
+                                speed: 1,
+                                opacity_min: 0.05,
+                                sync: false
+                            }
+                        },
+                        size: {
+                            value: 3,
+                            random: true,
+                            animation: {
+                                enable: true,
+                                speed: 2,
+                                size_min: 0.1,
+                                sync: false
+                            }
+                        },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: '#4a6cf7',
+                            opacity: 0.2,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 1,
+                            direction: 'none',
+                            random: true,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false,
+                            attract: {
+                                enable: false,
+                                rotateX: 600,
+                                rotateY: 1200
+                            }
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: 'grab'
+                            },
+                            onclick: {
+                                enable: true,
+                                mode: 'push'
+                            },
+                            resize: true
+                        },
+                        modes: {
+                            grab: {
+                                distance: 140,
+                                line_linked: {
+                                    opacity: 0.5
+                                }
+                            },
+                            push: {
+                                particles_nb: 4
+                            }
+                        }
+                    },
+                    retina_detect: true
+                });
+            }
+        });
+        
+        // Add styles for tooltip
+        const style = document.createElement('style');
+        style.textContent = `
+            .radial-tooltip {
+                position: absolute;
+                background: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 5px 10px;
+                border-radius: 4px;
+                font-size: 12px;
+                white-space: nowrap;
+                pointer-events: none;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                top: -30px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .card-shine {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                pointer-events: none;
+                z-index: 100;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html> 
